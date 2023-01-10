@@ -6,63 +6,62 @@ import { addingBookToDB } from "../Redux/BookRedux/bookActionCreater";
 import { useDispatch } from "react-redux";
 import { deleteData } from "../helper/deleteData";
 import { useState } from "react";
+import Button from "./UI/Button";
 import AddBookForm from "./AddBookForm";
 import UpdateBook from "./UpdateBook";
+import styles from "../styles/bookCollection.module.css";
+import UpdateBookModal from "./UpdateBookModal";
 function BookCollectionForAdmin({ bookDetail, updateState }) {
   const dispath = useDispatch();
   const [showForm, setShowForm] = useState(false);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  // function handleClickPlus() {
-  //   dispath(editBookToDBIncre(bookDetail.id));
-  // }
-  // function handleClickMinus(){
-  //   dispath(editBookToDBDecre(bookDetail.id))
-  // }
   async function handleDelete() {
     // dispath(deleteBookToDB(bookDetail.id))
     const deleteDataRecieve = await deleteData(bookDetail.id);
     updateState(deleteDataRecieve, "delete");
+    alert("Book is going to get deleted from Library")
   }
   function handleAddBook() {
     setShowForm(true);
   }
   function handleUpdate() {
-    setShowUpdateForm(true);
+    setShowModal(true);
+  }
+
+  function handleCloseModal(){
+    setShowModal(false)
   }
 
   return (
-    <div style={{margin:"12px",padding:"10px"}}>
-      <h2>book-{bookDetail.name}</h2>
-      <h3>author={bookDetail.author}</h3>
-      <h4>Total Books-{bookDetail.total}</h4>
+  
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12">
+          <div className="card mb-3">
+            <div className={`card-body ${styles.cardContainer}`}>
+              <h2 className="card-title">{bookDetail.name}</h2>
+              <h5 className="card-text ">Author: {bookDetail.author}</h5>
+              <h5 className="card-text">Price: Rs{bookDetail.price}</h5>
+              <h5 className="card-text">Stock:{bookDetail.total} books</h5>
+              <div className="btn-group" role="group">
+                <Button onClick={handleDelete}>Delete</Button>
+                <Button  onClick={handleUpdate}>Update</Button>
+                <UpdateBookModal
+                  updateState={updateState}
+                  detail={bookDetail}
+                  show={showModal}
+                  closeModal={handleCloseModal}
+                  onHide={handleCloseModal}
+                 
+                />
+             
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* <h5>
-        <button
-          style={{ padding: "5px 20px", margin: "5px" }}
-          onClick={handleClickPlus}
-        >
-          +
-        </button>
-        <button style={{ padding: "5px 20px", margin: "5px" }} onClick={handleClickMinus}>-</button>
-      </h5> */}
-      <h5>
-        <button
-          style={{ padding: "5px 20px", margin: "5px" }}
-          onClick={handleUpdate}
-        >
-          Update Book
-        </button>
-      </h5>
-      {showUpdateForm && <UpdateBook updateState={updateState} detail={bookDetail}/>}
-      <h5>
-        <button
-          style={{ padding: "5px 20px", margin: "5px" }}
-          onClick={handleDelete}
-        >
-          Delete
-        </button>
-      </h5>
-      <h5>
         <button
           style={{ padding: "5px 20px", margin: "5px" }}
           onClick={handleAddBook}
@@ -70,10 +69,12 @@ function BookCollectionForAdmin({ bookDetail, updateState }) {
           Add Book
         </button>
       </h5>
-      {showForm && <AddBookForm updateState={updateState} />}
-      <hr />
+      {showForm && <AddBookForm updateState={updateState} />} */}
     </div>
   );
 }
 
 export default BookCollectionForAdmin;
+// background-color: #8b071a;
+//     color: white;
+//     border-radius: 11px;

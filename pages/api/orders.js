@@ -22,6 +22,7 @@ function readOrders(req, res) {
       res.status(500).json({ error: "Internal server error" });
     } else {
       let array = JSON.parse(data);
+   
       if (req.query && req.query.userName) {
         array = array.filter((val) => val.userName == req.query.userName);
       }
@@ -29,10 +30,12 @@ function readOrders(req, res) {
       const bookJson = JSON.parse(
         fs.readFileSync("Jsons/Books/books.json", "utf-8")
       );
+  
 
       // loop on orders
       array = array.map((item1) => {
         const bookobj = bookJson.find((item2) => item2.id === item1.bookId);
+        
 
         return {
           ...item1,
@@ -51,14 +54,14 @@ function readOrders(req, res) {
 
 function addOrders(req, res) {
   const orderId = uuidv4();
-
-  let { bookId, userName, qty, status } = req.body;
+  let { bookId,bill, userName, qty, status } = req.body;
 
   // read the data from json
   const jsonOrderData = fs.readFileSync("Jsons/Orders/orders.json", "utf-8");
 
   let objOrderData = JSON.parse(jsonOrderData);
-  objOrderData.push({ orderId: orderId, bookId, userName, qty, status });
+  objOrderData.push({ orderId: orderId, bookId, userName, qty, status,bill });
+ 
   // // write the data to json
   fs.writeFileSync("Jsons/Orders/orders.json", JSON.stringify(objOrderData));
   res.status(201).json({ msg: "tell me what you need" });

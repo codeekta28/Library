@@ -10,6 +10,7 @@ function AdminOrderResponseStatus({ orderDetail }) {
       const stock =
         parseInt(orderDetail.bookDetail.total) - parseInt(orderDetail.qty);
       if (event.target.value == 2) {
+        console.log("approved")
        
         const UpdatedBookObj = {
           id: orderDetail.bookId,
@@ -59,9 +60,10 @@ function AdminOrderResponseStatus({ orderDetail }) {
         rejectedOrderObj,
         orderDetail.orderId
       );
-    }
-    // console.log("re",rejectedOrderData)
+          // console.log("re",rejectedOrderData)
     alert("Your order is rejected and status will be updated in some time")
+    }
+
   }
 
   return (

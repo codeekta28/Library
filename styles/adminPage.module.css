@@ -1,0 +1,14 @@
+.adminContainer{
+  overflow: hidden;
+padding: 2rem;
+height: 100vh;
+background-color: black;
+}
+.bookCollection{
+    display: flex;
+    max-width: 1000px;
+   margin: auto;
+   flex-direction: column;
+   height: 70vh;/* Set the height of the container */
+   overflow-y: scroll; /* Add a scrollbar to the container */
+}

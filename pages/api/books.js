@@ -36,13 +36,11 @@ function readBooks(req, res) {
 function addBook(req, res) {
   const data = fs.readFileSync("Jsons/Books/books.json","utf-8");
   const storedBooks = JSON.parse(data);
-  let {name, author, total} = req.body;
-  // const ID = storedBooks.length + 1;
-  // console.log(uuid.v4())
+  let {name, author, total,price} = req.body;
   const ID=uuidv4()
-  storedBooks.push({ id: ID, name, author, total })
+  storedBooks.push({ id: ID, name, author, total,price })
   fs.writeFileSync('Jsons/Books/books.json', JSON.stringify(storedBooks));
-  res.status(201).json({ id: ID, name, author, total });
+  res.status(201).json({ id: ID, name, author, total,price });
 }
 
 function deleteBook(req,res){
@@ -63,20 +61,6 @@ function deleteBook(req,res){
 }
 
 function editBook(req,res){
-  // console.log(req.body);
-     // Read JSON file
-    //  const data = await fs.promises.readFile('array.json', 'utf8');
-    //  let array = JSON.parse(data);
-
-    //     // Find object in array and update it
-    // const index = array.findIndex(obj => obj.id === newObject.id);
-    // if (index !== -1) {
-    //   array[index] = newObject;
-    // } else {
-    //   // If object is not found, add it to the array
-    //   array.push(newObject);
-    // }
-
     // Write modified array back to JSON file
     fs.writeFileSync('Jsons/Books/books.json', JSON.stringify(req.body))
     res.status(201).json(req.body)

@@ -8,6 +8,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+    --gradient: linear-gradient(to left top, #a76d87 10%, #f112ae 90%) !important;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -105,3 +106,8 @@ a {
     color-scheme: dark;
   }
 }
+
+/* user Order css */
+
+
+

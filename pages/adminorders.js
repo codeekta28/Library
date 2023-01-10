@@ -3,25 +3,32 @@ import { useSelector } from "react-redux";
 import AdminOrderResponseStatus from "../Components/AdminOrderResponseStatus";
 
 function adminorders({ orders }) {
+
   const orderDetail = orders.map((val) => {
+      const color={
+    color:val.status=="pending"?"red":"green"
+  }
     if (val.status !== "approved") {
- return(
-  <div key={val.orderId} style={{ margin: "20px", padding: "20px" }}>
-  <h2>OrderId:{val.orderId}</h2>
-  <h2>User:{val.userName}</h2>
-  <h2>BookName:{val.bookDetail.name}</h2>
-  <h2>AuthorName{val.bookDetail.author}:</h2>
-  <h2>Order Quantity:{val.qty}</h2>
-  <h2>Stock:{val.bookDetail.total}</h2>
-  <h2>status:{val.status}</h2>
-  <AdminOrderResponseStatus orderDetail={val} />
-  <hr />
-</div>
- )
+      return (
+        <div className="border border-dark bg-black text-light rounded" key={val.orderId} style={{ margin: "20px", padding: "20px" }}>
+          <h2>OrderId: {val.orderId}</h2>
+          <h2 style={color}>status: {val.status}</h2>
+          <h3>User:{val.userName}</h3>
+          <h3>BookName:{val.bookDetail.name}</h3>
+          <h3>AuthorName{val.bookDetail.author}:</h3>
+          <h3>Order Quantity:{val.qty}</h3>
+          <h3>Stock:{val.bookDetail.total}</h3>
+          <AdminOrderResponseStatus orderDetail={val} />
+       
+        </div>
+      );
     }
   });
 
-  return <>{orderDetail}</>;
+  return <div className="">
+
+  {orderDetail}
+  </div>;
 }
 
 export default adminorders;
